@@ -1,5 +1,13 @@
 @use 'theme.module.scss' as theme;
 
+.v-navigation-drawer {
+  border-color: theme.$neutral-80 !important;
+}
+
+.v-field__append-inner > .v-icon {
+  font-size: 12px;
+}
+
 .v-data-table-header__content {
   color: theme.$neutral-800;
   font-size: 12px;

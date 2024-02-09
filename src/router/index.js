@@ -6,12 +6,16 @@ export default createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/attendance-logs',
+      path: '/',
+      redirect: '/manage-attendance/attendance-logs'
+    },
+    {
+      path: '/manage-attendance/attendance-logs',
       name: 'attendance-logs',
       component: AttendanceLogsView
     },
     {
-      path: '/exported-files',
+      path: '/manage-attendance/exported-files',
       name: 'exported-files',
       component: ExportedFilesView
     },

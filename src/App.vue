@@ -9,7 +9,7 @@ import TheSidebar from './components/the/TheSidebar.vue'
     <TheNavbar />
     <TheSidebar />
 
-    <v-main class="ma-4">
+    <v-main class="ma-7">
       <RouterView />
     </v-main>
   </v-layout>

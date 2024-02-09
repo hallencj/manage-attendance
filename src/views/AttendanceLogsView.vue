@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from 'vue'
 import calendar from '@/assets/svg/calendar.svg'
+import no_payslip from '@/assets/svg/no-payslip.svg'
 import BaseTableFooter from '@/components/base/BaseTableFooter.vue'
 
 const headers = reactive(
@@ -59,11 +60,27 @@ const items = reactive(
       :headers="headers"
       :items="items"
     >
+      <template #no-data>
+        <v-sheet 
+          class="justify-center d-flex"
+          height="564"
+        >
+          <v-card-item>
+            <v-img 
+              :src="no_payslip"
+              height="144"
+            />
+            <h2>No attendance logs to show</h2>
+            <p>Get started by searching for the logs</p>
+          </v-card-item>
+        </v-sheet>
+      </template>
+
       <template #item="{ item }">
         <tr class="text-neutral-800">
           <td>
             <h4>{{ item.name }}</h4>
-            <small class="text-neutral-90">{{ item.id }}</small>
+            <small class="text-neutral-90 sub-text">{{ item.id }}</small>
           </td>
           
           <td>{{ item.date }}</td>
@@ -78,18 +95,18 @@ const items = reactive(
               width="33"
               height="16"
             >
-              <span>{{ item.log_details }}</span>
+              <span class="sub-text">{{ item.log_details }}</span>
             </v-sheet>
           </td>
 
           <td>
             <h4>{{ item.location }}</h4>
-            <small class="text-neutral-90 font-italic">Notes</small>
+            <small class="text-neutral-90 font-italic sub-text">Notes</small>
           </td>
 
           <td>
             <h4>{{ item.project_name }}</h4>
-            <small class="text-neutral-90">NS</small>
+            <small class="text-neutral-90 sub-text">NS</small>
           </td>
 
           <td>
@@ -112,7 +129,7 @@ const items = reactive(
 </template>
 
 <style scoped>
-small, span {
+.sub-text {
   font-size: 12px;
 }
 </style>
