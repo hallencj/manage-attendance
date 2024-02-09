@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import transparent_logo from '@/assets/transparent-logo.svg'
+import transparent_logo from '@/assets/svg/transparent-logo.svg'
 import TheNavbarMenus from './TheNavbarMenus.vue'
 import TheNavbarSearch from './TheNavbarSearch.vue'
 import TheNavbarUser from './TheNavbarUser.vue'

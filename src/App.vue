@@ -8,6 +8,11 @@ import TheSidebar from './components/the/TheSidebar.vue'
   <v-layout>
     <TheNavbar />
     <TheSidebar />
-    <RouterView />
+
+    <v-main class="ma-4">
+      <RouterView />
+    </v-main>
   </v-layout>
 </template>
+
+<style src="@/assets/css/global.scss"></style>
