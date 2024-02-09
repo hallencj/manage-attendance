@@ -1,15 +1,21 @@
 $neutral-40: #C3CDC9;
 $neutral-60: #A5B3AF;
+$neutral-90: #788E86;
 $neutral-400: #3C5B51;
 $neutral-500: #2D4F43;
 $neutral-800: #00291B;
 $green-300: #17AD49;
+$blue-300: #0F6EEB;
+$orange-300: #FF7F00;
 
 :export {
   neutral-40: $neutral-40;
   neutral-60: $neutral-60;
+  neutral-90: $neutral-90;
   neutral-400: $neutral-400;
   neutral-500: $neutral-500;
   neutral-800: $neutral-800;
   green-300: $green-300;
+  blue-300: $blue-300;
+  orange-300: $orange-300;
 }

@@ -1,0 +1,8 @@
+@use 'theme.module.scss' as theme;
+
+.v-data-table-header__content {
+  color: theme.$neutral-800;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0em;
+}

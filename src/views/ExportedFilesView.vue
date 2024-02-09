@@ -39,10 +39,6 @@ import BaseTableFooter from '@/components/base/BaseTableFooter.vue'
 <style lang="scss" scoped>
 @use '@/assets/css/theme.module.scss' as theme;
 
-h1, h2, p {
-  color: theme.$neutral-800;
-}
-
 .export {
   color: theme.$green-300;
 }

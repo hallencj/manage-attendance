@@ -15,4 +15,7 @@ import TheSidebar from './components/the/TheSidebar.vue'
   </v-layout>
 </template>
 
-<style src="@/assets/css/global.scss"></style>
+<style>
+@import '@/assets/css/global.scss';
+@import '@/assets/css/overwrite.scss';
+</style>
