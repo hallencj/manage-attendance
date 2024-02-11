@@ -1,9 +1,13 @@
 <script setup>
-import { reactive } from 'vue'
-import calendar from '@/assets/svg/calendar.svg'
-import no_payslip from '@/assets/svg/no-payslip.svg'
+import { watch, reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import calendar_svg from '@/assets/svg/calendar.svg'
+import no_payslip_svg from '@/assets/svg/no-payslip.svg'
+import dummy_logs from '@/assets/json/dummy-logs.json'
 import BaseTableFooter from '@/components/base/BaseTableFooter.vue'
 
+const hide_button_group = ref(false)
+const button_group = reactive(['Active Logs', 'Deleted Logs'])
 const headers = reactive(
   [
     { title: 'NAME', key: 'name', sortable: false },
@@ -16,21 +20,27 @@ const headers = reactive(
     { title: '', key: '', sortable: false }
   ]
 )
+const items = ref([])
+const total_items = ref(0)
+const total_pages = ref(1)
+const show_window = ref(button_group[0])
+const route = useRoute()
 
-const items = reactive(
-  [
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'IN', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'OUT', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'IN', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'OUT', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'IN', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'OUT', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'IN', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'OUT', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'IN', log_details: 'APP', location: '-', project_name: 'Notification...' },
-    { id: '1234', name: 'Aguas, Ivy', date: '03/16/2022', time: '01:34 PM', in_out: 'OUT', log_details: 'APP', location: '-', project_name: 'Notification...' }
-  ]
-)
+watch(() => route.query, () => fetchAttendanceLogs(), { deep: true, immediate: true })
+
+function fetchAttendanceLogs() {
+  if (route.query.date_from && route.query.date_to) {
+    hide_button_group.value = true
+    items.value = dummy_logs
+    total_pages.value = 13
+    total_items.value = 123
+  } else {
+    hide_button_group.value = false
+    items.value = []
+    total_pages.value = 1
+    total_items.value = 0
+  }
+}
 </script>
 
 <template>
@@ -40,14 +50,41 @@ const items = reactive(
   >
     <v-col cols="auto">
       <v-img
-        :src="calendar"
+        :src="calendar_svg"
         height="16"
         width="16"
       />
     </v-col>
     
     <v-col>
-      <p>Mar 01, 2022 - Mar 16, 2022</p>
+      <p v-if="hide_button_group">Mar 01, 2022 - Mar 16, 2022</p>
+      <p v-else>Date Range</p>
+    </v-col>
+
+    <v-col 
+      v-if="!hide_button_group" 
+      cols="auto"
+    >
+      <v-btn 
+        v-for="button in button_group"
+        :key="button"
+        :color="show_window === button ? 'green-300' : ''"
+        @click="show_window = button"
+        class="button-group"
+        height="30"
+        variant="flat" 
+      >
+        <template #append>
+          <v-icon 
+            v-show="show_window === button"
+            class="pl-2 pr-3"
+            icon="fa:fas fa-check" 
+            size="12" 
+          />
+        </template>
+
+        {{ button }}
+      </v-btn>
     </v-col>
   </v-row>
 
@@ -57,7 +94,7 @@ const items = reactive(
     variant="outlined"
   >
     <v-data-table
-      :headers="headers"
+      :headers="items.length ? headers : []"
       :items="items"
     >
       <template #no-data>
@@ -67,7 +104,7 @@ const items = reactive(
         >
           <v-card-item>
             <v-img 
-              :src="no_payslip"
+              :src="no_payslip_svg"
               height="144"
             />
             <h2>No attendance logs to show</h2>
@@ -122,14 +159,35 @@ const items = reactive(
       </template>
       
       <template #bottom>
-        <BaseTableFooter />
+        <BaseTableFooter 
+          :total_pages="total_pages"
+          :total_items="total_items"
+        />
       </template>
     </v-data-table>
   </v-card>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/assets/css/theme.module.scss' as theme;
+
 .sub-text {
   font-size: 12px;
+}
+
+.button-group {
+  border: 1px solid theme.$green-300;
+  color: theme.$green-300;
+  font-size: 12px;
+  padding: 0 8px;
+  text-transform: capitalize;
+
+  &:first-of-type {
+    border-radius: 4px 0 0 4px !important;
+  }
+
+  &:last-of-type {
+    border-radius: 0 4px 4px 0 !important;
+  }
 }
 </style>

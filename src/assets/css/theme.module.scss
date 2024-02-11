@@ -1,4 +1,6 @@
+$neutral-10: #F0F2F2;
 $neutral-40: #C3CDC9;
+$neutral-50: #B4C0BC;
 $neutral-60: #A5B3AF;
 $neutral-80: #879A94;
 $neutral-90: #788E86;
@@ -11,7 +13,9 @@ $orange-300: #FF7F00;
 $success: #E6FFEE;
 
 :export {
+  neutral-10: $neutral-10;
   neutral-40: $neutral-40;
+  neutral-50: $neutral-50;
   neutral-60: $neutral-60;
   neutral-80: $neutral-80;
   neutral-90: $neutral-90;

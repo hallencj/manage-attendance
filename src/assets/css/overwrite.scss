@@ -4,6 +4,12 @@
   border-color: theme.$neutral-80 !important;
 }
 
+.v-field--disabled {
+  background: theme.$neutral-10 !important;
+  color: theme.$neutral-50;
+  opacity: 1 !important;
+}
+  
 .v-field__append-inner > .v-icon {
   font-size: 12px;
 }

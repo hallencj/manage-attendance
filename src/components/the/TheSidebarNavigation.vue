@@ -1,13 +1,13 @@
 <script setup>
 import { reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import calendar_outlined from '@/assets/svg/calendar-outlined.svg'
-import download from '@/assets/svg/download.svg'
+import calendar_outlined_svg from '@/assets/svg/calendar-outlined.svg'
+import download_svg from '@/assets/svg/download.svg'
 
 const navigations = reactive(
   [
-    { icon: calendar_outlined, title: 'Attendance Logs', link: '/manage-attendance/attendance-logs' },
-    { icon: download, title: 'Exported Files', link: '/manage-attendance/exported-files' }
+    { icon: calendar_outlined_svg, title: 'Attendance Logs', link: '/manage-attendance/attendance-logs' },
+    { icon: download_svg, title: 'Exported Files', link: '/manage-attendance/exported-files' }
   ]
 )
 const route = useRoute()

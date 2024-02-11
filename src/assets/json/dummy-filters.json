@@ -1,0 +1,33 @@
+[
+  {
+    "company": "Sprout Solutions",
+    "departments": ["Product", "Engineering"],
+    "locations": ["Bahay", "Pasig", "Office"],
+    "employees": ["Employee 111", "Employee 222", "Employee 333", "Employee 444", "Employee 555"]
+  },
+  {
+    "company": "McDollibee",
+    "departments": ["Product"],
+    "locations": ["Bahay", "Makati", "Mandaluyong"],
+    "employees": ["Employee AAA", "Employee BBB", "Employee CCC", "Employee DDD", "Employee EEE"]
+  },
+  {
+    "company": "NoLocation Company",
+    "departments": ["Sales"],
+    "locations": [],
+    "employees": ["Employee AAA", "Employee BBB", "Employee CCC"]
+  },
+  {
+    "company": "NoEmployees Company",
+    "departments": ["Sales"],
+    "locations": ["New York", "Los Angeles"],
+    "employees": []
+  },
+  {
+    "company": "NoLocationEmployees Company",
+    "departments": ["IT"],
+    "locations": [],
+    "employees": []
+  }
+]
+

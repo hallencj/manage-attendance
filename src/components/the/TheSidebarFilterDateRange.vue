@@ -14,6 +14,7 @@ const date_to = ref('03/29/2022')
     base-color="neutral-80"
     color="neutral-80"
     height="48"
+    readonly
   >
     <template #label>
       <span class="text-neutral-80 text-label">Date From</span>
@@ -34,6 +35,7 @@ const date_to = ref('03/29/2022')
     base-color="neutral-80"
     color="neutral-80"
     height="48"
+    readonly
   >
     <template #label>
       <span class="text-neutral-80 text-label">Date To</span>

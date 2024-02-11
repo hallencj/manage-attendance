@@ -1,7 +1,9 @@
 <script setup>
+import { useRoute } from 'vue-router'
 import TheSidebarNavigation from './TheSidebarNavigation.vue'
 import TheSidebarFilter from './TheSidebarFilter.vue'
-import TheSidebarAction from './TheSidebarAction.vue'
+
+const route = useRoute()
 </script>
 
 <template>
@@ -9,12 +11,8 @@ import TheSidebarAction from './TheSidebarAction.vue'
     <TheSidebarNavigation />
     
     <v-divider />
-    
-    <TheSidebarFilter />
-
-    <v-divider />
-
-    <TheSidebarAction />
+      
+    <TheSidebarFilter v-if="route.name !== 'exported-files'" />
   </v-navigation-drawer>
 </template>
 

@@ -1,3 +1,14 @@
+<script setup>
+defineProps(
+  {
+    total_pages: {
+      type: Number,
+      default: 0
+    }
+  }
+)
+</script>
+
 <template>
   <v-icon
     color="neutral-40" 
@@ -32,7 +43,7 @@
     </v-list>
   </v-menu>
   
-  <span class="text-neutral-400">of 1</span>
+  <span class="text-neutral-400">of {{ total_pages ? total_pages : 0 }}</span>
 
   <v-icon
     class="mx-4"
