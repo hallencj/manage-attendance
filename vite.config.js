@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
+  base: '/manage-attendance/', // For Github
   plugins: [
     vue()
   ],
