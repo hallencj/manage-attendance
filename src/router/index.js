@@ -18,11 +18,6 @@ export default createRouter({
       path: '/manage-attendance/exported-files',
       name: 'exported-files',
       component: ExportedFilesView
-    },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import('../views/AboutView.vue')
-    // }
+    }
   ]
 })

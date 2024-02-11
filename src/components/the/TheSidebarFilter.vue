@@ -73,7 +73,10 @@ function search() {
       block
     >
       <template #prepend>
-        <v-icon icon="fa:fas fa-search" size="14"></v-icon>
+        <v-icon 
+          icon="fa:fas fa-search" 
+          size="14" 
+        />
       </template>
       
       Search

@@ -1,5 +1,5 @@
 <script setup>
-import no_payslip from '@/assets/svg/no-payslip.svg'
+import BaseTableNoData from '@/components/base/BaseTableNoData.vue'
 import BaseTableFooter from '@/components/base/BaseTableFooter.vue'
 </script>
 
@@ -14,32 +14,18 @@ import BaseTableFooter from '@/components/base/BaseTableFooter.vue'
   >
     <v-data-table>
       <template #no-data>
-        <v-sheet 
-          class="justify-center d-flex"
-          height="564"
-        >
-          <v-card-item>
-            <v-img 
-              :src="no_payslip"
-              height="144"
-            />
-            <h2>There are no exported items to show on your end.</h2>
-            <p>Search for logs and click <span class="export">Export</span> to generate the file here.</p>
-          </v-card-item>
-        </v-sheet>
+        <BaseTableNoData 
+          title="There are no exported items to show on your end."
+          description="<p>Search for logs and click <span class='text-green-300'>Export</span> to generate the file here.</p>"
+        />
       </template>
 
       <template #bottom>
-        <BaseTableFooter />
+        <BaseTableFooter 
+          :total_pages="1"
+          :total_items="0"
+        />
       </template>
     </v-data-table>
   </v-card>
 </template>
-
-<style lang="scss" scoped>
-@use '@/assets/css/theme.module.scss' as theme;
-
-.export {
-  color: theme.$green-300;
-}
-</style>

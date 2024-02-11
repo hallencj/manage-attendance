@@ -1,5 +1,7 @@
 <script setup>
-defineProps(
+import { computed } from 'vue'
+
+const props = defineProps(
   {
     total_pages: {
       type: Number,
@@ -7,18 +9,22 @@ defineProps(
     }
   }
 )
+
+const icon_color = computed(() => {
+  return props.total_pages > 1 ? 'green-300' : 'neutral-40'
+})
 </script>
 
 <template>
   <v-icon
-    color="neutral-40" 
+    :color="icon_color"
     icon="$first" 
     size="14" 
   />
 
   <v-icon
+    :color="icon_color"
     class="mx-4"
-    color="neutral-40" 
     icon="fa:fas fa-caret-left" 
     size="16" 
   />
@@ -46,14 +52,14 @@ defineProps(
   <span class="text-neutral-400">of {{ total_pages ? total_pages : 0 }}</span>
 
   <v-icon
+    :color="icon_color" 
     class="mx-4"
-    color="neutral-40" 
     icon="fa:fas fa-caret-right" 
     size="16" 
   />
 
   <v-icon
-    color="neutral-40" 
+    :color="icon_color" 
     icon="$last" 
     size="14" 
   />

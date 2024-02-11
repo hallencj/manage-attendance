@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const search = ref('')
-const showPlaceholder = ref(true)
+const show_placeholder = ref(true)
 
 function handleSearch() {
   // TO:DO
@@ -19,8 +19,8 @@ function handleSearch() {
       v-model="search" 
       @click:append-inner="handleSearch()"
       @keyup.enter="handleSearch()"
-      @focus="showPlaceholder = false"
-      @blur="showPlaceholder = true"
+      @focus="show_placeholder = false"
+      @blur="show_placeholder = true"
       density="compact"
       variant="solo" 
       bg-color="transparent"
@@ -36,7 +36,7 @@ function handleSearch() {
     </v-text-field>
 
     <span 
-      v-show="showPlaceholder" 
+      v-show="show_placeholder" 
       class="search-employee-placeholder"
     >
       Search Employee...

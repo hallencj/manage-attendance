@@ -7,7 +7,10 @@ const route = useRoute()
 </script>
 
 <template>
-  <v-navigation-drawer width="354">
+  <v-navigation-drawer 
+    width="354"
+    permanent
+  >
     <TheSidebarNavigation />
     
     <v-divider />
@@ -15,4 +18,3 @@ const route = useRoute()
     <TheSidebarFilter v-if="route.name !== 'exported-files'" />
   </v-navigation-drawer>
 </template>
-

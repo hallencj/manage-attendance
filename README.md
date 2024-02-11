@@ -2,10 +2,6 @@
 
 Manage Attendance is a module in Sprout Solutions - HR website.
 
-# Feature
-
-*For Listing*
-
 # Installation
 
 1. git clone https://github.com/hallencj/manage-attendance.git

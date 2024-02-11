@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
   <v-menu>
     <template v-slot:activator="{ props }">

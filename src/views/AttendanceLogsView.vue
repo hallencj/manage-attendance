@@ -1,14 +1,15 @@
 <script setup>
 import { watch, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import calendar_svg from '@/assets/svg/calendar.svg'
-import no_payslip_svg from '@/assets/svg/no-payslip.svg'
 import dummy_logs from '@/assets/json/dummy-logs.json'
+import BaseTableLoader from '@/components/base/BaseTableLoader.vue'
+import BaseTableNoData from '@/components/base/BaseTableNoData.vue'
 import BaseTableFooter from '@/components/base/BaseTableFooter.vue'
+import AttendanceLogsHeader from '@/components/AttendanceLogsHeader.vue'
+import AttendanceLogsTableRow from '@/components/AttendanceLogsTableRow.vue'
 
-const hide_button_group = ref(false)
-const button_group = reactive(['Active Logs', 'Deleted Logs'])
-const headers = reactive(
+const is_filtered = ref(false)
+const tbl_headers = reactive(
   [
     { title: 'NAME', key: 'name', sortable: false },
     { title: 'DATE', key: 'date', sortable: false },
@@ -20,73 +21,38 @@ const headers = reactive(
     { title: '', key: '', sortable: false }
   ]
 )
-const items = ref([])
+const tbl_loading = ref(true)
+const tbl_items = ref([])
 const total_items = ref(0)
 const total_pages = ref(1)
-const show_window = ref(button_group[0])
 const route = useRoute()
 
 watch(() => route.query, () => fetchAttendanceLogs(), { deep: true, immediate: true })
 
 function fetchAttendanceLogs() {
-  if (route.query.date_from && route.query.date_to) {
-    hide_button_group.value = true
-    items.value = dummy_logs
-    total_pages.value = 13
-    total_items.value = 123
-  } else {
-    hide_button_group.value = false
-    items.value = []
-    total_pages.value = 1
-    total_items.value = 0
-  }
+  // Fetch API
+  tbl_loading.value = true
+
+  setTimeout(() => { // To MIMIC
+    if (route.query.date_from && route.query.date_to) {
+      is_filtered.value = true
+      tbl_items.value = dummy_logs
+      total_pages.value = 13
+      total_items.value = 123
+    } else {
+      is_filtered.value = false
+      tbl_items.value = []
+      total_pages.value = 1
+      total_items.value = 0
+    }
+
+    tbl_loading.value = false
+  }, 2000)
 }
 </script>
 
 <template>
-  <v-row 
-    align="center" 
-    dense
-  >
-    <v-col cols="auto">
-      <v-img
-        :src="calendar_svg"
-        height="16"
-        width="16"
-      />
-    </v-col>
-    
-    <v-col>
-      <p v-if="hide_button_group">Mar 01, 2022 - Mar 16, 2022</p>
-      <p v-else>Date Range</p>
-    </v-col>
-
-    <v-col 
-      v-if="!hide_button_group" 
-      cols="auto"
-    >
-      <v-btn 
-        v-for="button in button_group"
-        :key="button"
-        :color="show_window === button ? 'green-300' : ''"
-        @click="show_window = button"
-        class="button-group"
-        height="30"
-        variant="flat" 
-      >
-        <template #append>
-          <v-icon 
-            v-show="show_window === button"
-            class="pl-2 pr-3"
-            icon="fa:fas fa-check" 
-            size="12" 
-          />
-        </template>
-
-        {{ button }}
-      </v-btn>
-    </v-col>
-  </v-row>
+  <AttendanceLogsHeader :is_filtered="is_filtered" />
 
   <v-card   
     class="mt-5"
@@ -94,68 +60,24 @@ function fetchAttendanceLogs() {
     variant="outlined"
   >
     <v-data-table
-      :headers="items.length ? headers : []"
-      :items="items"
+      :loading="tbl_loading"
+      :headers="tbl_items.length ? tbl_headers : []"
+      :items="tbl_items"
+      loading-text=""
     >
       <template #no-data>
-        <v-sheet 
-          class="justify-center d-flex"
-          height="564"
-        >
-          <v-card-item>
-            <v-img 
-              :src="no_payslip_svg"
-              height="144"
-            />
-            <h2>No attendance logs to show</h2>
-            <p>Get started by searching for the logs</p>
-          </v-card-item>
-        </v-sheet>
+        <BaseTableNoData 
+          title="No attendance logs to show"
+          description="<p>Get started by searching for the logs</p>"
+        />
+      </template>
+
+      <template #loader>
+        <BaseTableLoader />
       </template>
 
       <template #item="{ item }">
-        <tr class="text-neutral-800">
-          <td>
-            <h4>{{ item.name }}</h4>
-            <small class="text-neutral-90 sub-text">{{ item.id }}</small>
-          </td>
-          
-          <td>{{ item.date }}</td>
-          <td>{{ item.time }}</td>
-
-          <td :class="item.in_out === 'IN' ? 'text-blue-300' : 'text-orange-300'">{{ item.in_out }}</td>
-
-          <td>
-            <v-sheet
-              class="rounded-sm justify-center d-flex"
-              color="neutral-40"
-              width="33"
-              height="16"
-            >
-              <span class="sub-text">{{ item.log_details }}</span>
-            </v-sheet>
-          </td>
-
-          <td>
-            <h4>{{ item.location }}</h4>
-            <small class="text-neutral-90 font-italic sub-text">Notes</small>
-          </td>
-
-          <td>
-            <h4>{{ item.project_name }}</h4>
-            <small class="text-neutral-90 sub-text">NS</small>
-          </td>
-
-          <td>
-            <v-btn
-              class="mb-3"
-              color="green-300"
-              icon="fa:fas fa-edit" 
-              size="12"
-              variant="plain"
-            />
-          </td>
-        </tr>
+        <AttendanceLogsTableRow :item="item" />
       </template>
       
       <template #bottom>
@@ -167,27 +89,3 @@ function fetchAttendanceLogs() {
     </v-data-table>
   </v-card>
 </template>
-
-<style lang="scss" scoped>
-@use '@/assets/css/theme.module.scss' as theme;
-
-.sub-text {
-  font-size: 12px;
-}
-
-.button-group {
-  border: 1px solid theme.$green-300;
-  color: theme.$green-300;
-  font-size: 12px;
-  padding: 0 8px;
-  text-transform: capitalize;
-
-  &:first-of-type {
-    border-radius: 4px 0 0 4px !important;
-  }
-
-  &:last-of-type {
-    border-radius: 0 4px 4px 0 !important;
-  }
-}
-</style>
