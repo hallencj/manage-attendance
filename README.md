@@ -7,7 +7,7 @@ Manage Attendance is a module in Sprout Solutions - HR website.
 1. git clone https://github.com/hallencj/manage-attendance.git
 2. cd manage-attendance
 3. npm install
-4. npm install node@v20.9.0 --save-dev (Optional if the 3rd step did not work)
+4. npm install node@v20.9.0 --save-dev (Optional if the 3rd step did not worked.)
 5. npm run dev
 
 # Unit Test with Cypress

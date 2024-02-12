@@ -32,6 +32,7 @@ watch(() => route.query, () => fetchAttendanceLogs(), { deep: true, immediate: t
 function fetchAttendanceLogs() {
   // Fetch API
   tbl_loading.value = true
+  tbl_items.value = []
 
   setTimeout(() => { // To MIMIC
     if (route.query.date_from && route.query.date_to) {
